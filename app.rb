@@ -1,7 +1,7 @@
 require 'weighted_graph'
 require 'victor'
-require './adjacency'
-require './path'
+require 'adjacency_matrix'
+require 'floyd_warshall'
 require './distance'
 require './loader'
 
@@ -56,11 +56,11 @@ combined_svg = Victor::SVG.new width: 1200, height: 400, style: { background: '#
   combined_svg << svg
 
   # create matrix containing only direct distances between nodes
-  adjacency = Adjacency.new(nodes, graph)
+  matrix = AdjacencyMatrix::Matrix.new(nodes, graph)
 
   # create matrix containing shortes distances, possibly traversing other nodes
-  pa = Path.new(nodes, graph)
-  shortest = pa.floyd_warshall
+  optimizer = FloydWarshall::Optimizer.new(matrix)
+  shortest = optimizer.run
 
   # select shortest path between first and last node by trying all permutations
   d = Distance.new(nodes, shortest)
