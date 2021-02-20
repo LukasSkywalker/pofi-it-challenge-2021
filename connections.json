@@ -1,0 +1,39 @@
+[
+  [
+    { "from": "pof", "to": "a11" },
+    { "from": "a11", "to": "a13" },
+    { "from": "a13", "to": "a15" },
+    { "from": "a15", "to": "pow" },
+    { "from": "pof", "to": "a12" },
+    { "from": "a12", "to": "a15" },
+    { "from": "a12", "to": "a14" },
+    { "from": "a14", "to": "pow" }
+  ], [
+    { "from": "pow", "to": "a21" },
+    { "from": "a21", "to": "a22" },
+    { "from": "a22", "to": "a24" },
+    { "from": "a22", "to": "a23" },
+    { "from": "a23", "to": "a24" },
+    { "from": "pow", "to": "a23" },
+    { "from": "a23", "to": "a25" },
+    { "from": "a25", "to": "edu" },
+    { "from": "a24", "to": "edu" }
+  ], [
+    { "from": "edu", "to": "a31" },
+    { "from": "a31", "to": "a32" },
+    { "from": "a32", "to": "a34" },
+    { "from": "a34", "to": "a35" },
+    { "from": "a32", "to": "a33" },
+    { "from": "a33", "to": "dsd" },
+    { "from": "a35", "to": "dsd" }
+  ], [
+    { "from": "dsd", "to": "a41" },
+    { "from": "a41", "to": "a45" },
+    { "from": "a41", "to": "a42" },
+    { "from": "a42", "to": "a43" },
+    { "from": "a43", "to": "cha" },
+    { "from": "a45", "to": "cha" },
+    { "from": "a42", "to": "a44" },
+    { "from": "a44", "to": "cha" }
+  ]
+]
