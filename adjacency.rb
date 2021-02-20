@@ -42,7 +42,7 @@ class Adjacency
 
   # Copy an existing matrix
   def clone
-    Adjacency.new(nodes, graph)
+    Adjacency.new(nodes, graph, Marshal.load(Marshal.dump(matrix)))
   end
 
   private

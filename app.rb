@@ -1,19 +1,22 @@
 require 'weighted_graph'
-require 'json'
 require 'victor'
 require './adjacency'
 require './path'
 require './distance'
+require './loader'
 
-all_coordinates = JSON.parse(File.read('coordinates.json'))
-all_connections = JSON.parse(File.read('connections.json'))
+loader = Loader.new('coordinates.json', 'connections.json')
+
+all_coordinates = loader.coordinates
+all_connections = loader.connections
+all_nodes = loader.nodes
 
 total_distance = 0
 total_path = ''
 combined_svg = Victor::SVG.new width: 1200, height: 400, style: { background: '#fff' }
 
 (0..3).each do |segment|
-  nodes = all_coordinates[segment].keys
+  nodes = all_nodes[segment]
   connections = all_connections[segment]
   coordinates = all_coordinates[segment]
 
@@ -23,13 +26,11 @@ combined_svg = Victor::SVG.new width: 1200, height: 400, style: { background: '#
     svg.text(name, x: position['x'] * 20, y: 400 - position['y'] * 20, font_size: 30, fill: 'red')
   end
   connections.each do |connection|
-    from = coordinates[connection['from']]
-    to = coordinates[connection['to']]
     svg.line(
-      x1: from['x']* 20,
-      y1: 400 - from['y'] * 20,
-      x2: to['x'] * 20,
-      y2: 400 - to['y'] * 20,
+      x1: connection['from']['x']* 20,
+      y1: 400 - connection['from']['y'] * 20,
+      x2: connection['to']['x'] * 20,
+      y2: 400 - connection['to']['y'] * 20,
       style: { stroke: 'red' }
     )
   end
@@ -37,16 +38,17 @@ combined_svg = Victor::SVG.new width: 1200, height: 400, style: { background: '#
   graph = WeightedGraph::PositiveWeightedGraph.new
 
   connections.each do |connection|
-    from_name = connection['from']
-    from_pos = coordinates[from_name]
-    to_name = connection['to']
-    to_pos = coordinates[to_name]
-    dist = Distance.between(from_pos, to_pos)
+    from = connection['from']
+    to = connection['to']
+    from_name = from['name']
+    to_name = to['name']
+
+    dist = Distance.between(from, to)
     graph.add_undirected_edge(from_name, to_name, dist)
 
     svg.text(dist.round(3),
-      x: ((to_pos['x'] + from_pos['x'])/2) * 20,
-      y: 400 - ((to_pos['y'] + from_pos['y'])/2) * 20,
+      x: ((to['x'] + from['x'])/2) * 20,
+      y: 400 - ((to['y'] + from['y'])/2) * 20,
       font_size: 20, fill: 'red'
     )
   end
