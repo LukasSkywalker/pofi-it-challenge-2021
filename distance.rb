@@ -1,3 +1,8 @@
+# Calculates shortest distance in a graph by visiting all nodes.
+# Permutes the order in which the nodes are visisted and takes
+# the shortest path to the next node in the list, possibly revisiting
+# older nodes.
+
 class Distance
   attr_reader :nodes, :adjacency
   def initialize(nodes, adjacency)
@@ -5,16 +10,19 @@ class Distance
     @adjacency = adjacency
   end
 
+  # Calculates the distance between two points in a 2d cartesian system
   def self.between(a, b)
     dx = b['x'] - a['x']
     dy = b['y'] - a['y']
     Math.sqrt(dx**2 + dy**2)
   end
 
+  # Get the nodes traversed by the shortest path
   def shortest_path
     distances.min_by(&:last).first
   end
 
+  # Get the distance of the shortest path
   def shortest_distance
     distances.min_by(&:last).last
   end

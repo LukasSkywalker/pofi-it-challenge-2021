@@ -9,6 +9,7 @@ class Path
     @graph = graph
   end
 
+  # Calculate the shortest distance between each pair of nodes
   def floyd_warshall
     matrices = [Adjacency.new(nodes, graph)]
     nodes.each_with_index do |iter, k|

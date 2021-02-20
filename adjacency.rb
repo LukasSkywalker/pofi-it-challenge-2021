@@ -1,3 +1,6 @@
+# Generates an adjacency matrix from a list of nodes and their connecting edges.
+# Getters and setters for individual entries.
+
 class Adjacency
   attr_reader :nodes, :graph, :matrix
   def initialize(nodes, graph, matrix = nil)
@@ -11,12 +14,14 @@ class Adjacency
     end
   end
 
+  # Get the distance between the two given nodes
   def get(from, to)
     fi = nodes.index(from)
     ti = nodes.index(to)
     matrix[fi][ti]
   end
 
+  # Set the distance between the two given nodes
   def set(from, to, value)
     fi = nodes.index(from)
     ti = nodes.index(to)
@@ -35,6 +40,7 @@ class Adjacency
     return str
   end
 
+  # Copy an existing matrix
   def clone
     Adjacency.new(nodes, graph)
   end
